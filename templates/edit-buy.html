@@ -1,0 +1,70 @@
+{% extends "dashboard.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+
+<div class="content-wrapper ">
+    <div class="container pt-5">
+        <div class="col-sm-11 text-white bg-white px-3 py-3 mx-auto d-block  shadow">
+            <p class="dashboard-heading-1">
+                EDIT BOTTLE</p>
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-success text-center" role="alert">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+
+
+
+            <form method="POST" action="/buy-edit" enctype="multipart/form-data">
+                <div class="row mt-1 ">
+
+                    <input hidden name="sno" type="text" multiple class="form-control " value="{{data2[0]}}" required>
+
+                    <div class="col-sm-6 mb-2">
+                        <label for="exampleInputPassword1" class="form-label">DATE</label>
+
+                        <input name="date" type="date" multiple class="form-control" value="{{data2[1]}}" required>
+                    </div>
+
+
+
+
+
+                    <div class="col-sm-6 mb-2">
+                        <label for="exampleInputPassword1" class="form-label">TIME</label>
+
+                        <input name="purchasing_time" type="time" multiple class="form-control" value="{{data3}}" required>
+                    </div>
+
+
+                    <div class="col-sm-6 mb-2">
+                        <label for="exampleInputPassword1" class="form-label">QUANTITY</label>
+
+                        <input name="quantity" type="text" multiple class="form-control " value="{{data2[3]}}" placeholder="PASSWORD" required>
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label for="exampleInputPassword1" class="form-label">COIN VALUE</label>
+
+                        <input name="coin_value" type="text" multiple class="form-control " value="{{data2[4]}}" required>
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label for="exampleInputPassword1" class="form-label">COIN</label>
+
+                        <input name="coin" type="text" multiple class="form-control" value="{{data2[5]}}" required>
+                    </div>
+
+
+
+                </div>
+                <button type="submit" class="btn btn-primary">Save Change</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends "dashboard.html" %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+
+
+<!-- Modal -->
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Buy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/buy">
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="exampleInputEmail1" class="form-label">Buy Date</label>
+                            <input type="date" name="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+
+
+                        <div class="mb-3 col-6">
+                            <label for="exampleInputPassword1" class="form-label">Coin</label>
+                            <input type="text" name="coin" class="form-control" id="exampleInputPassword1">
+                        </div>
+
+
+
+                        <div class="mb-3 col-6">
+                            <label for="exampleInputPassword1" class="form-label">Quantity</label>
+                            <input type="text" name="quantity" class="form-control" id="exampleInputPassword1">
+                        </div>
+
+
+                        <div class="mb-3 col-6">
+                            <label for="exampleInputEmail1" class="form-label">Coin Value</label>
+                            <input type="text" name="coin_value" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                        </div>
+
+
+                        <div class="mb-3 col-6">
+                            <label for="exampleInputEmail1" class="form-label">Purchasing Time</label>
+                            <input type="time" name="purchasing_time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-sm-12">
+
+    <form action="/from-to">
+        <div class="row">
+            <div class="col-sm-5">
+                <label for="exampleInputEmail1" class="form-label">FROM</label>
+                <input type="date" name="fromm" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+
+            <div class="col-sm-5">
+
+                <label for="exampleInputPassword1" class="form-label">TO</label>
+                <input name="too" type="date" class="form-control" id="exampleInputPassword1">
+            </div>
+
+
+            <div class="col-sm-2">
+
+
+                <button type="submit" style="margin-top: 25px;" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="card shadow mb-4">
+
+        <div class="container table-responsive">
+
+            <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Buy
+              </button>
+
+            <table id="Table" class="table table-striped table-bordered mt-5 mb-5">
+                <thead>
+                    <tr>
+                        {% for header in header %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for records in data %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{records[1]}}</td>
+                        <td>{{records[2]}}</td>
+                        <td>{{records[3]}}</td>
+                        <td>{{records[4]}}</td>
+                        <td>{{records[5]}}</td>
+                        {% if status == "super_admin" %}
+
+
+
+
+
+
+                        <td><a href="/buy-edit?id={{records[0]}}"><button class="btn btn-success">EDIT</button></a></td>
+
+
+
+                        <td><a href="/buy-delete?id={{records[0]}}"><button class="btn btn-danger">DELETE</button></a></td>
+                        {% endif %}
+
+
+                    </tr>
+                    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">DELETE USER</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <H5> are you sure want to delete this user ? </H5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a href="/user-delete?id={{records[0]}}"><button class="btn btn-danger">Delete</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        {% for header in header %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock%} {% block script %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var t = $('#Table').DataTable({
+            dom: 'Bfrtip',
+            order: [
+                [1, "asc"]
+            ],
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+        $(".dt-button").addClass("btn btn-success");
+
+    });
+</script>
+
+
+
+{% endblock %}
